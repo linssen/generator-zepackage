@@ -39,6 +39,7 @@ exports.template = function (grunt, init, done) {
         init.addLicenseFiles(files, props.licenses);
 
         // Actually copy (and process) files.
+        grunt.template.addDelimiters('init', '[%', '%]');
         init.copyAndProcess(files, props, {noProcess: 'libs/**'});
 
         props.version = '0.0.0-ignored';
