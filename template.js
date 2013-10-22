@@ -41,15 +41,17 @@ exports.template = function (grunt, init, done) {
         // Actually copy (and process) files.
         init.copyAndProcess(files, props, {noProcess: 'libs/**'});
 
-        props.name = 'ze-package';
+        props.name = 'zepackage';
         props.version = '0.0.0-ignored';
         props.npm_test = 'grunt qunit';
-        props.node_version = '>= 0.8.0';
+        props.node_version = '>= 0.10.21';
         props.devDependencies = {
-            'grunt-contrib-qunit': '~0.2.0',
+            'grunt-contrib-qunit': '~0.3.0',
             'grunt-contrib-concat': '~0.3.0',
-            'grunt-contrib-uglify': '~0.2.0',
-            'grunt-contrib-watch': '~0.4.0'
+            'grunt-contrib-uglify': '~0.2.4',
+            'grunt-contrib-watch': '~0.5.3',
+            'grunt-contrib-sass': '~0.5.0',
+            'grunt-contrib-connect': '~0.5.0'
         };
 
         // Generate package.json file, used by npm and grunt.
