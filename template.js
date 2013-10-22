@@ -41,7 +41,6 @@ exports.template = function (grunt, init, done) {
         // Actually copy (and process) files.
         init.copyAndProcess(files, props, {noProcess: 'libs/**'});
 
-        props.name = 'zepackage';
         props.version = '0.0.0-ignored';
         props.npm_test = 'grunt qunit';
         props.node_version = '>= 0.10.21';
