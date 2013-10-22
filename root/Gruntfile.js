@@ -38,6 +38,16 @@ module.exports = function (grunt) {
             options: {
                 urls: ['http://127.0.0.1:9001/static/scripts/tests/index.html']
             }
+        },
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'static/styles/dist/<%= pkg.name %>.css': 'static/styles/screen.scss'
+                }
+            }
         }
 
     });
