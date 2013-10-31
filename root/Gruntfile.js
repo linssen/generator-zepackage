@@ -35,8 +35,10 @@ module.exports = function (grunt) {
             }
         },
         qunit: {
-            options: {
-                urls: ['http://127.0.0.1:9001/static/scripts/tests/index.html']
+            all: {
+                options: {
+                    urls: ['http://127.0.0.1:9001/static/scripts/tests/index.html']
+                }
             }
         },
         sass: {
