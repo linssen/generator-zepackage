@@ -1,5 +1,8 @@
 /*global exports */
 
+var https = require('https'),
+    ProgressBar = require('progress');
+
 // Basic template description.
 exports.description = 'Slot in the front endy bits of a project.';
 
@@ -30,7 +33,40 @@ exports.template = function (grunt, init, done) {
         init.prompt('author_email'),
         init.prompt('author_url')
     ], function (err, props) {
-        var files = [];
+        var files, req, fetchBoltOn;
+
+        fetchBoltOn = function (user, repo) {
+            req = https.request({
+                host: 'codeload.github.com',
+                port: 443,
+                path: '/' + [user, repo, 'legacy.tar.gz', 'master'].join('/')
+            });
+
+            req.on('response', function (res) {
+                var len = parseInt(res.headers['content-length'], 10),
+                    bar = new ProgressBar('Downloading bolt on [:bar] :percent :etas', {
+                        complete: '=',
+                        incomplete: ' ',
+                        width: 20,
+                        total: len
+                    });
+
+                res.on('data', function (chunk) {
+                    bar.tick(chunk.length);
+                });
+
+                res.on('end', function () {
+                    grunt.log.write('\n');
+                    done();
+                });
+            });
+
+            req.end();
+        };
+
+        files = [];
+
+        fetchBoltOn('linssen', 'django-layout');
 
         // Files to copy (and process).
         files = init.filesToCopy(props);
@@ -58,6 +94,6 @@ exports.template = function (grunt, init, done) {
         init.writePackageJSON('package.json', props);
 
         // All done!
-        done();
+        // done();
     });
 };

@@ -1,0 +1,25 @@
+{
+  "name": "zepackage",
+  "version": "0.0.0",
+  "description": "Slot in the front endy bits of a project.",
+  "main": "template.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linssen/grunt-init-zepackage.git"
+  },
+  "keywords": [
+    "grunt"
+  ],
+  "author": "Wil Linssen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linssen/grunt-init-zepackage/issues"
+  },
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "progress": "~1.1.2"
+  }
+}
