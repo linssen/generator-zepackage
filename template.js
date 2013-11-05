@@ -1,7 +1,6 @@
 /*global exports */
 
-var https = require('https'),
-    ProgressBar = require('progress');
+var https = require('https');
 
 // Basic template description.
 exports.description = 'Slot in the front endy bits of a project.';
@@ -43,20 +42,36 @@ exports.template = function (grunt, init, done) {
             });
 
             req.on('response', function (res) {
-                var len = parseInt(res.headers['content-length'], 10),
-                    bar = new ProgressBar('Downloading bolt on [:bar] :percent :etas', {
-                        complete: '=',
-                        incomplete: ' ',
-                        width: 20,
-                        total: len
-                    });
+                var bar_width, format, progress, total;
+
+                if (res.statusCode !== 200) {
+                }
+
+                grunt.log.ok('Bolt on found, downloading...');
+
+                bar_width = 40;
+                total = parseInt(res.headers['content-length'], 10);
+                progress = 0;
+                format = '[:bar] :percent% ';
 
                 res.on('data', function (chunk) {
-                    bar.tick(chunk.length);
+                    var bar, percent, ratio, ticks;
+
+                    progress += chunk.length;
+                    ratio = (progress >= total) ? 1 : progress / total;
+                    ticks = Math.round(bar_width * ratio);
+                    bar = Array(ticks).join('#') + Array(bar_width - ticks).join(' ');
+
+                    process.stdout.clearLine();
+                    process.stdout.cursorTo(0);
+                    process.stdout.write(format
+                        .replace(':bar', bar)
+                        .replace(':percent', Math.round(ratio * 100))
+                    );
                 });
 
                 res.on('end', function () {
-                    grunt.log.write('\n');
+                    grunt.log.writeln();
                     done();
                 });
             });
@@ -66,7 +81,7 @@ exports.template = function (grunt, init, done) {
 
         files = [];
 
-        fetchBoltOn('linssen', 'django-layout');
+        fetchBoltOn('linssen', 'dotfiles');
 
         // Files to copy (and process).
         files = init.filesToCopy(props);
