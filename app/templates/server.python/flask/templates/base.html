@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for='static', filename='styles/dist/<%= _.slugify(appName) %>.css' }}">
+    {% endblock %}
+</head>
+<body>
+
+    {% block tail %}
+    <script src="{{ url_for='static', filename='scripts/dist/<%= _.slugify(appName) %>.js' }}"></script>
+    {% endblock %}
+</body>
+</html>
