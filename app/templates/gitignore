@@ -1,0 +1,6 @@
+.DS_Store
+*.swp
+*.py[co]
+node_modules
+.sass-cache
+*.egg-info
