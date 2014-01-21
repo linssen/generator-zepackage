@@ -6,8 +6,8 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                    'static/scripts/dist/<%%= pkg.name %>.js': [
-                        'static/scripts/**/*.js',
+                    'src/scripts/dist/<%%= pkg.name %>.js': [
+                        'src/scripts/**/*.js',
                     ]
                 }
             }
@@ -17,11 +17,11 @@ module.exports = function (grunt) {
                 livereload: true
             },
             scripts: {
-                files: ['static/scripts/**/*.js'],
+                files: ['src/scripts/**/*.js'],
                 tasks: ['concat']
             },
             styles: {
-                files: ['static/styles/screen.scss'],
+                files: ['src/styles/screen.scss'],
                 tasks: ['sass:dev']
             }
         },
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'static/styles/dist/<%%= pkg.name %>.css': 'static/styles/screen.scss'
+                    'src/styles/dist/<%%= pkg.name %>.css': 'src/styles/screen.scss'
                 }
             },
             dev: {
@@ -39,14 +39,14 @@ module.exports = function (grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'static/styles/dist/<%%= pkg.name %>.css': 'static/styles/screen.scss'
+                    'src/styles/dist/<%%= pkg.name %>.css': 'src/styles/screen.scss'
                 }
             },
         },
         concat: {
             scripts: {
                 files: {
-                    'static/styles/dist/<%%= pkg.name %>.css': 'static/styles/screen.scss'
+                    'src/styles/dist/<%%= pkg.name %>.css': 'src/styles/screen.scss'
                 }
             }
         }
