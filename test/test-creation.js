@@ -26,10 +26,11 @@ describe('zepackage generator', function () {
         expectedFiles = [
             '.jshintrc',
             '.editorconfig',
+            '.gitignore',
             'Gruntfile.js',
             'src/templates/base.html',
             'src/static/styles/_config.scss',
-            'src/static/styles/_reset.scss',
+            'src/static/styles/_normalize.scss',
             'src/static/styles/_utils.scss',
             'src/static/styles/screen.scss'
         ];
