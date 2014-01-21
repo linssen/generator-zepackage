@@ -1,15 +1,22 @@
 module.exports = function (grunt) {
     'use strict';
 
+    var scripts;
+
+    scripts = {
+        'src/static/scripts/dist/<%%= pkg.name %>.js': [
+            'src/static/bower_components/d3/d3.js',
+            'src/static/bower_components/topojson/topojson.js',
+            'src/static/scripts/**/*.js',
+            '!src/static/scripts/dist/<%%= pkg.name %>.js'
+        ]
+    };
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         uglify: {
             dist: {
-                files: {
-                    'src/scripts/dist/<%%= pkg.name %>.js': [
-                        'src/scripts/**/*.js',
-                    ]
-                }
+                files: scripts
             }
         },
         watch: {
@@ -17,11 +24,17 @@ module.exports = function (grunt) {
                 livereload: true
             },
             scripts: {
-                files: ['src/scripts/**/*.js'],
+                files: [
+                    'src/static/scripts/**/*.js',
+                    '!src/static/scripts/dist/*.js'
+                ],
                 tasks: ['concat']
             },
             styles: {
-                files: ['src/styles/screen.scss'],
+                files: [
+                    'src/static/styles/screen.scss',
+                    '!src/static/styles/dist/*.css'
+                ],
                 tasks: ['sass:dev']
             }
         },
@@ -31,23 +44,22 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'src/styles/dist/<%%= pkg.name %>.css': 'src/styles/screen.scss'
+                    'src/static/styles/dist/<%%= pkg.name %>.css': 'src/static/styles/screen.scss'
                 }
             },
             dev: {
                 options: {
-                    style: 'expanded'
+                    style: 'expanded',
+                    sourcemap: true
                 },
                 files: {
-                    'src/styles/dist/<%%= pkg.name %>.css': 'src/styles/screen.scss'
+                    'src/static/styles/dist/<%%= pkg.name %>.css': 'src/static/styles/screen.scss'
                 }
             },
         },
         concat: {
             scripts: {
-                files: {
-                    'src/styles/dist/<%%= pkg.name %>.css': 'src/styles/screen.scss'
-                }
+                files: scripts
             }
         }
 
