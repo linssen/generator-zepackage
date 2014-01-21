@@ -1,0 +1,26 @@
+/*
+    CONTENTS
+    ---------------
+
+        - PX TO EM
+
+    ---------------
+*/
+
+/* PX TO EM
+
+    Converts pixels to ems based on a relative start
+
+    Credit:
+        - [Garrett Winder](http://erskinedesign.com/blog/calculating-ems-scss/)
+
+    Usage:
+
+        $base_font: 1.3em;
+        .logo {
+            font-size: em(21, $base_font);
+        }
+---------------------------------------------------------------------------- */
+@function em($target, $context: $base_font) {
+    @return ($target / $context) * 1em;
+}
