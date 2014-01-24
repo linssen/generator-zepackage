@@ -72,7 +72,7 @@ ZepackageGenerator.prototype.styles = function styles() {
 };
 
 ZepackageGenerator.prototype.scripts = function scripts() {
-    this.directory('static/scripts', 'src/static/scripts');
+    this.mkdir('src/static/scripts');
 };
 
 ZepackageGenerator.prototype.templates = function templates() {
