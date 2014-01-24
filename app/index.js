@@ -54,7 +54,6 @@ ZepackageGenerator.prototype.askFor = function askFor() {
 
 ZepackageGenerator.prototype.app = function app() {
     this.mkdir('src');
-    this.mkdir('src/templates');
 
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
