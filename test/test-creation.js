@@ -34,7 +34,6 @@ describe('zepackage generator', function () {
             'src/templates/base.html',
             'src/static/styles/_config.scss',
             'src/static/styles/_normalize.scss',
-            'src/static/styles/_utils.scss',
             'src/static/styles/main.scss'
         ];
 
