@@ -58,7 +58,7 @@ ZepackageGenerator.prototype.app = function app() {
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
     this.copy('_bowerrc', '.bowerrc');
-    this.copy('Gruntfile.js', 'Gruntfile.js');
+    this.copy('gulpfile.js', 'gulpfile.js');
 };
 
 ZepackageGenerator.prototype.projectfiles = function projectfiles() {

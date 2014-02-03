@@ -28,15 +28,14 @@ describe('zepackage generator', function () {
             '.editorconfig',
             '.gitignore',
             '.bowerrc',
-            'Gruntfile.js',
+            'gulpfile.js',
             'package.json',
             'bower.json',
-            'Gruntfile.js',
             'src/templates/base.html',
             'src/static/styles/_config.scss',
             'src/static/styles/_normalize.scss',
             'src/static/styles/_utils.scss',
-            'src/static/styles/screen.scss'
+            'src/static/styles/main.scss'
         ];
 
         helpers.mockPrompt(this.app, {
@@ -48,16 +47,13 @@ describe('zepackage generator', function () {
             var expectedAppName, files, regexes;
             expectedAppName = 'my-app';
             files = {
-                'base.html': fs.readFileSync('src/templates/base.html', 'utf8'),
                 'package.json':  fs.readFileSync('package.json', 'utf8')
             };
             regexes = {
-                'base.html': /filename=\'styles\/dist\/my-app\.css\'/,
                 'package.json': /\"name\": \"my-app\"/
             };
 
             helpers.assertFiles(expectedFiles);
-            assert.ok(regexes['base.html'].test(files['base.html']), 'base.html template using an incorrect appName');
             assert.ok(regexes['package.json'].test(files['package.json']), 'package.json template using an incorrect appName');
 
             done();
