@@ -16,13 +16,13 @@ server = lr();
 
 gulp.task('styles', function () {
     return gulp.src('./src/static/styles/main.scss')
-        .pipe(sass({ style: 'expanded' }))
+        .pipe(sass({quiet: true, style: 'expanded'}))
         .pipe(gulp.dest('./src/static/dist/styles'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
         .pipe(gulp.dest('./src/static/dist/styles'))
         .pipe(livereload(server))
-        .pipe(notify({ message: 'Styles task complete' }));
+        .pipe(notify({message: 'Styles task complete'}));
 });
 
 gulp.task('scripts', function() {
@@ -36,7 +36,7 @@ gulp.task('scripts', function() {
         .pipe(uglify({outSourceMap: true}))
         .pipe(gulp.dest('./src/static/dist/scripts'))
         .pipe(livereload(server))
-        .pipe(notify({ message: 'Scripts task complete' }));
+        .pipe(notify({message: 'Scripts task complete'}));
 });
 
 gulp.task('clean', function() {

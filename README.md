@@ -27,6 +27,12 @@ $ yo zepackage
 
 ## Usage
 
+Download bower dependencies
+
+```
+bower install
+```
+
 Build js / css with [gulp](http://gulpjs.com/)
 
 ```
