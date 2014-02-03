@@ -1,4 +1,4 @@
-var clean, concat, gulp, livereload, lr, minifycss, notify,
+var clean, concat, gulp, gutil, livereload, lr, minifycss, notify,
     rename, sass, server, uglify;
 
 clean = require('gulp-clean');
@@ -11,12 +11,13 @@ notify = require('gulp-notify');
 rename = require('gulp-rename');
 sass = require('gulp-ruby-sass');
 uglify = require('gulp-uglify');
+gutil = require('gulp-util');
 
 server = lr();
 
 gulp.task('styles', function () {
     return gulp.src('./src/static/styles/main.scss')
-        .pipe(sass({quiet: true, style: 'expanded'}))
+        .pipe(sass({quiet: true, style: 'expanded', sourcemap: gutil.env.debug}))
         .pipe(gulp.dest('./src/static/dist/styles'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
@@ -33,7 +34,7 @@ gulp.task('scripts', function() {
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./src/static/dist/scripts'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify({outSourceMap: true}))
+        .pipe(uglify({outSourceMap: gutil.env.debug}))
         .pipe(gulp.dest('./src/static/dist/scripts'))
         .pipe(livereload(server))
         .pipe(notify({message: 'Scripts task complete'}));
