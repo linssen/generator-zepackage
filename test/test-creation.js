@@ -31,15 +31,14 @@ describe('zepackage generator', function () {
             'gulpfile.js',
             'package.json',
             'bower.json',
-            'src/templates/base.html',
+            'src/templates/index.html',
             'src/static/styles/_config.scss',
             'src/static/styles/_normalize.scss',
             'src/static/styles/main.scss'
         ];
 
         helpers.mockPrompt(this.app, {
-            'appName': 'my app',
-            'serverSide': 'python.flask'
+            'appName': 'my app'
         });
         this.app.options['skip-install'] = true;
         this.app.run({}, function () {

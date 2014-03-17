@@ -26,27 +26,11 @@ ZepackageGenerator.prototype.askFor = function askFor() {
         {
             name: 'appName',
             message: 'What is the app\'s name?'
-        },
-        {
-            type: 'list',
-            name: 'serverSide',
-            message: 'What server side tech will you use?',
-            choices: [
-                {
-                    name: 'Python / Flask',
-                    value: 'python.flask'
-                },
-                {
-                    name: 'Straight up HTML / JS',
-                    value: 'html'
-                }
-            ]
         }
     ];
 
     this.prompt(prompts, function (answers) {
         this.appName = answers.appName;
-        this.serverSide = answers.serverSide.split('.');
 
         cb();
     }.bind(this));
@@ -55,30 +39,19 @@ ZepackageGenerator.prototype.askFor = function askFor() {
 ZepackageGenerator.prototype.app = function app() {
     this.mkdir('src');
 
-    this.copy('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
-    this.copy('_bowerrc', '.bowerrc');
-    this.copy('gulpfile.js', 'gulpfile.js');
-    this.config.save();
-};
-
-ZepackageGenerator.prototype.projectfiles = function projectfiles() {
-    this.copy('editorconfig', '.editorconfig');
+    this.copy('package.json', 'package.json');
+    this.copy('bower.json', 'bower.json');
+    this.copy('bowerrc', '.bowerrc');
     this.copy('jshintrc', '.jshintrc');
     this.copy('gitignore', '.gitignore');
-};
+    this.copy('editorconfig', '.editorconfig');
 
-ZepackageGenerator.prototype.styles = function styles() {
+    this.copy('gulpfile.js', 'gulpfile.js');
+
     this.directory('static/styles', 'src/static/styles');
-};
-
-ZepackageGenerator.prototype.scripts = function scripts() {
     this.mkdir('src/static/scripts');
-};
 
-ZepackageGenerator.prototype.templates = function templates() {
-    var dest, src;
-    src = 'server.' + this.serverSide.join('/') + '/templates';
-    dest = this.serverSide.length === 2 ? 'src/templates' : 'src';
-    this.directory(src, dest);
+    this.directory('templates', 'src/templates');
+
+    this.config.save();
 };
