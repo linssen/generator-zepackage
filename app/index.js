@@ -1,57 +1,56 @@
 'use strict';
-var util = require('util');
-var path = require('path');
 var yeoman = require('yeoman-generator');
 
+var ZepackageGenerator = yeoman.generators.Base.extend({
+    init: function () {
+        this.pkg = require('../package.json');
 
-var ZepackageGenerator = module.exports = function ZepackageGenerator (args, options, config) {
-    yeoman.generators.Base.apply(this, arguments);
+        this.on('end', function () {
+            if (!this.options['skip-install']) {
+                this.installDependencies();
+            }
+        });
+    },
 
-    this.on('end', function () {
-        this.installDependencies({ skipInstall: options['skip-install'] });
-    });
+    askFor: function askFor () {
+        var cb = this.async();
 
-    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-};
+        // have Yeoman greet the user.
+        console.log(this.yeoman);
 
-util.inherits(ZepackageGenerator, yeoman.generators.Base);
+        var prompts = [
+            {
+                name: 'appName',
+                message: 'What is the app\'s name?'
+            }
+        ];
 
-ZepackageGenerator.prototype.askFor = function askFor() {
-    var cb = this.async();
+        this.prompt(prompts, function (answers) {
+            this.appName = answers.appName;
 
-    // have Yeoman greet the user.
-    console.log(this.yeoman);
+            cb();
+        }.bind(this));
+    },
 
-    var prompts = [
-        {
-            name: 'appName',
-            message: 'What is the app\'s name?'
-        }
-    ];
+    app: function app () {
+        this.mkdir('src');
 
-    this.prompt(prompts, function (answers) {
-        this.appName = answers.appName;
+        this.copy('package.json', 'package.json');
+        this.copy('bower.json', 'bower.json');
+        this.copy('bowerrc', '.bowerrc');
+        this.copy('jshintrc', '.jshintrc');
+        this.copy('gitignore', '.gitignore');
+        this.copy('editorconfig', '.editorconfig');
 
-        cb();
-    }.bind(this));
-};
+        this.copy('gulpfile.js', 'gulpfile.js');
 
-ZepackageGenerator.prototype.app = function app() {
-    this.mkdir('src');
+        this.directory('static/styles', 'src/static/styles');
+        this.mkdir('src/static/scripts');
 
-    this.copy('package.json', 'package.json');
-    this.copy('bower.json', 'bower.json');
-    this.copy('bowerrc', '.bowerrc');
-    this.copy('jshintrc', '.jshintrc');
-    this.copy('gitignore', '.gitignore');
-    this.copy('editorconfig', '.editorconfig');
+        this.directory('templates', 'src/templates');
 
-    this.copy('gulpfile.js', 'gulpfile.js');
+        this.config.save();
+    }
+});
 
-    this.directory('static/styles', 'src/static/styles');
-    this.mkdir('src/static/scripts');
-
-    this.directory('templates', 'src/templates');
-
-    this.config.save();
-};
+module.exports = ZepackageGenerator;

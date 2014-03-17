@@ -51,7 +51,7 @@ describe('zepackage generator', function () {
                 'package.json': /\"name\": \"my-app\"/
             };
 
-            helpers.assertFiles(expectedFiles);
+            helpers.assertFile(expectedFiles);
             assert.ok(regexes['package.json'].test(files['package.json']), 'package.json template using an incorrect appName');
 
             done();
