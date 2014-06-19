@@ -1,5 +1,5 @@
-var clean, concat, gulp, gutil, livereload, lr, minifycss, notify,
-    rename, sass, server, uglify;
+var clean, concat, gulp, gutil, livereload, lr, minifycss, rename, sass,
+    server, uglify;
 
 clean = require('gulp-clean');
 concat = require('gulp-concat');
@@ -7,7 +7,6 @@ gulp = require('gulp');
 livereload = require('gulp-livereload');
 lr = require('tiny-lr');
 minifycss = require('gulp-minify-css');
-notify = require('gulp-notify');
 rename = require('gulp-rename');
 sass = require('gulp-ruby-sass');
 uglify = require('gulp-uglify');
@@ -22,8 +21,7 @@ gulp.task('styles', function () {
         .pipe(rename({suffix: '.min'}))
         .pipe(minifycss())
         .pipe(gulp.dest('./src/static/dist/styles'))
-        .pipe(livereload(server))
-        .pipe(notify({message: 'Styles task complete'}));
+        .pipe(livereload(server));
 });
 
 gulp.task('scripts', function() {
@@ -36,8 +34,7 @@ gulp.task('scripts', function() {
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify({outSourceMap: gutil.env.debug}))
         .pipe(gulp.dest('./src/static/dist/scripts'))
-        .pipe(livereload(server))
-        .pipe(notify({message: 'Scripts task complete'}));
+        .pipe(livereload(server));
 });
 
 gulp.task('clean', function() {
